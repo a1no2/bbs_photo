@@ -17,7 +17,8 @@ post '/new' do
     Contribution.create({
         name: params[:user_name],
         body: params[:body],
-        img: ""
+        img: "",
+        good: 0
     })
     
     if params[:file]
@@ -53,4 +54,15 @@ def setup
       config.api_key    = "941587837424911"
       config.api_secret = "jrI0LdzVc2lkQdIPWRUmJa0DQcQ"
     end 
+end
+
+
+post '/good/:id' do
+    @content = Contribution.find(params[:id])
+    good = @content.good
+    @content.update({
+        good: good + 1
+    })
+    redirect '/'
+
 end
